@@ -136,4 +136,5 @@ archive/
 envs/
 tokens/
 queries/
+plugins/
 *.sh
