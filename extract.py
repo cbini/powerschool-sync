@@ -164,8 +164,8 @@ def main(host, env_file, query_file):
                     destination_blob_name = "powerschool/" + "/".join(
                         data_file.parts[-3:]
                     )
-                    # blob = gcs_bucket.blob(destination_blob_name)
-                    # blob.upload_from_filename(data_file)
+                    blob = gcs_bucket.blob(destination_blob_name)
+                    blob.upload_from_filename(data_file)
                     print(f"\t\tUploaded to {destination_blob_name}!")
 
                 except Exception as xc:
@@ -175,7 +175,7 @@ def main(host, env_file, query_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument("host", help="PowerSchool hostname")
     parser.add_argument("env", help=".env file")
     parser.add_argument("query", help="query file")
