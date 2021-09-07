@@ -1,0 +1,41 @@
+[
+    {"table_name": "gradecalcformulaweight"},
+    {"table_name": "gradecalculationtype"},
+    {"table_name": "gradecourseconfig"},
+    {"table_name": "gradeformulaset"},
+    {"table_name": "gradeschoolconfig"},
+    {"table_name": "gradeschoolformulaassoc"},
+    {"table_name": "gradesectionconfig"},
+    {
+        "table_name": "districtteachercategory",
+        "projection": "districtteachercategoryid,name,description,color,isinfinalgrades,isactive,isusermodifiable,displayposition,defaultscoreentrypoints,defaultextracreditpoints,defaultweight,defaulttotalvalue,defaultpublishstate,defaultpublishoption,isdefaultpublishscores,defaultscoretype,defaultdaysbeforedue,ip_address,whomodifiedid,whomodifiedtype,transaction_date,"
+    },
+    {
+        "table_name": "teachercategory",
+        "projection": "teachercategoryid,districtteachercategoryid,name,usersdcid,description,categorytype,color,isinfinalgrades,isactive,isusermodifiable,teachermodified,displayposition,defaultscoreentrypoints,defaultextracreditpoints,defaultweight,defaulttotalvalue,defaultpublishstate,defaultpublishoption,isdefaultpublishscores,defaultscoretype,defaultdaysbeforedue,ip_address,whomodifiedid,whomodifiedtype,transaction_date,"
+    },
+    {
+        "table_name": "assignmentcategoryassoc",
+        "projection": "assignmentcategoryassocid,assignmentsectionid,teachercategoryid,yearid,isprimary,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
+        "queries": {
+            "selector": "assignmentcategoryassocid",
+            "values": [17368]
+        }
+    },
+    {
+        "table_name": "assignmentsection",
+        "projection": "assignmentsectionid,yearid,sectionsdcid,assignmentid,relatedgradescaleitemdcid,name,duedate,description,scoretype,scoreentrypoints,extracreditpoints,weight,totalpointvalue,iscountedinfinalgrade,isscoringneeded,publishoption,publishdaysbeforedue,publishonspecificdate,publisheddate,publishedscoretypeid,isscorespublish,maxretakeallowed,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
+        "queries": {
+            "selector": "duedate",
+            "values": ["2021-07-01"]
+        }
+    },
+    {
+        "table_name": "assignmentscore",
+        "projection": "assignmentscoreid,yearid,assignmentsectionid,studentsdcid,islate,iscollected,isexempt,ismissing,isabsent,isincomplete,actualscoreentered,actualscorekind,actualscoregradescaledcid,scorepercent,scorepoints,scorelettergrade,scorenumericgrade,scoreentrydate,scoregradescaledcid,altnumericgrade,altalphagrade,altscoregradescaledcid,hasretake,authoredbyuc,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
+        "queries": {
+            "selector": "scoreentrydate",
+            "values": ["2021-07-01"]
+        }
+    }
+]
