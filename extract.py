@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from google.cloud import storage
 from powerschool import PowerSchool, utils
 
+from datarobot.utilities import email
+
 PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
@@ -152,6 +154,9 @@ def main(host, env_file, query_file):
             except Exception as xc:
                 print(xc)
                 print(traceback.format_exc())
+                email_subject = f"{host} Count Error - {table_name}"
+                email_body = f"{xc}\n\n{traceback.format_exc()}"
+                email.send_email(subject=email_subject, body=email_body)
                 continue
 
             if count > 0:
@@ -177,6 +182,9 @@ def main(host, env_file, query_file):
                 except Exception as xc:
                     print(xc)
                     print(traceback.format_exc())
+                    email_subject = f"{host} Extract Error - {table_name}"
+                    email_body = f"{xc}\n\n{traceback.format_exc()}"
+                    email.send_email(subject=email_subject, body=email_body)
 
 
 if __name__ == "__main__":
@@ -193,3 +201,6 @@ if __name__ == "__main__":
     except Exception as xc:
         print(xc)
         print(traceback.format_exc())
+        email_subject = f"{args.host} Extract Error - {args.query}"
+        email_body = f"{xc}\n\n{traceback.format_exc()}"
+        email.send_email(subject=email_subject, body=email_body)
