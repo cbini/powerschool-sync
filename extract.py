@@ -15,61 +15,72 @@ PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
 def main(host, env_file, query_file):
+    print(host, env_file, query_file)
     host_clean = host.replace(".", "_")
 
-    env_path = PROJECT_PATH / ".envs" / host_clean / env_file
-    queries_path = PROJECT_PATH / "queries" / host_clean / query_file
+    env_filepath = PROJECT_PATH / "envs" / host_clean / env_file
+    if not env_filepath.exists():
+        if not env_filepath.parent.exists():
+            print(f"Creating {env_filepath.parent}...")
+            env_filepath.parent.mkdir(parents=True)
+        raise FileNotFoundError(f"Create {env_filepath} and try again!")
 
-    load_dotenv(dotenv_path=env_path)
+    queries_filepath = PROJECT_PATH / "queries" / host_clean / query_file
+    if not queries_filepath.exists():
+        if not queries_filepath.parent.exists():
+            queries_filepath.parent.mkdir(parents=True)
+            print(f"Creating {queries_filepath.parent}...")
+        raise FileNotFoundError(f"Create {queries_filepath} and try again!")
+
+    load_dotenv(dotenv_path=env_filepath)
 
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
-    token_file = os.getenv("TOKEN_FILE")
-    current_yearid = os.getenv("CURRENT_YEARID")
+    token_filename = os.getenv("TOKEN_FILE")
+    current_yearid = int(os.getenv("CURRENT_YEARID"))
     gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
 
-    token_file = PROJECT_PATH / ".tokens" / host_clean / token_file
     client_credentials = (client_id, client_secret)
-    current_yearid = int(current_yearid)
 
-    # check if access token file exists
-    if token_file.exists():
-        print("Loading saved access token...")
-        token_dict = json.load(token_file.open("r"))
+    # load access token file, if exists
+    token_filepath = PROJECT_PATH / "tokens" / host_clean / token_filename
+    if not token_filepath.exists():
+        print(f"{token_filepath} does not exist!")
+        if not token_filepath.parent.exists():
+            print(f"Creating {token_filepath.parent}...")
+            token_filepath.parent.mkdir(parents=True)
+
+        ps = powerschool.PowerSchool(host=host, auth=client_credentials)
+
+        print(f"Saving new access token to {token_filepath}...")
+        with token_filepath.open("w") as f:
+            json.dump(ps.access_token, f)
+    else:
+        print(f"Loading {token_filepath}...")
+        with token_filepath.open("r") as f:
+            token_dict = json.load(f)
 
         now = datetime.datetime.utcnow()
         expires_at = datetime.datetime.fromtimestamp(token_dict["expires_at"])
         token_remaining = expires_at - now
-    else:
-        print(f"Specified token file {token_file} does not exist!")
-        if not token_file.parent.exists():
-            print(f"\tCreating folder {'/'.join(token_file.parent.parts[-2:])}...")
-            token_file.parent.mkdir(parents=True)
-        token_dict = {}
 
-    # check token validity and authenticate
-    try:
-        if token_remaining.days < 1:
-            raise
-            print("Token expired!")
+        # check token validity and authenticate
+        if token_remaining.days <= 1:
+            raise Exception("Token expired!")
         else:
             ps = powerschool.PowerSchool(host=host, auth=token_dict)
-    except Exception:
-        ps = powerschool.PowerSchool(host=host, auth=client_credentials)
-
-    # save access token
-    print(f"Saving access token to {'/'.join(token_file.parts[-3:])}...")
-    json.dump(ps.access_token, token_file.open("w"))
 
     gcs_storage_client = storage.Client()
     gcs_bucket = gcs_storage_client.bucket(gcs_bucket_name)
 
-    tables = json.load(queries_path.open("r"))
+    with queries_filepath.open("r") as f:
+        tables = json.load(f)
+
     for t in tables:
         table_name = t.get("table_name")
         projection = t.get("projection")
         queries = t.get("queries")
-        print(table_name)
+        print(f"{table_name}")
 
         # create data folder
         data_path = PROJECT_PATH / "data" / host_clean / table_name
@@ -81,18 +92,19 @@ def main(host, env_file, query_file):
         schema_table = ps.get_schema_table(table_name)
 
         # if there are queries, generate FIQL
-        query_parameters = []
+        query_params = []
         if queries:
             selector = queries.get("selector")
             values = queries.get("values")
+
             # check if data exists for specified table
             if not [f for f in data_path.iterdir()]:
                 # generate historical queries
                 print("\tNo existing data. Generating historical queries...")
-                query_parameters = utils.generate_historical_queries(
+                query_params = utils.generate_historical_queries(
                     current_yearid, selector
                 )
-                query_parameters.reverse()
+                query_params.reverse()
             else:
                 constraint_rules = utils.get_constraint_rules(selector, current_yearid)
 
@@ -113,21 +125,23 @@ def main(host, env_file, query_file):
                         expression = utils.get_query_expression(
                             selector, **constraint_values
                         )
-                    query_parameters.append(expression)
-        else:
-            query_parameters.append(None)
 
-        for q in query_parameters:
+                    query_params.append(expression)
+        else:
+            query_params.append({})
+
+        for q in query_params:
+            q_params = {}
             if q:
                 print(f"\tQuerying {q} ...")
                 data_file = data_path / f"{table_name}_{q}.json.gz"
+                q_params["q"] = q
             else:
                 print("\tQuerying all records...")
                 data_file = data_path / f"{table_name}.json.gz"
 
-            tq_params = {"q": q}
             try:
-                count = schema_table.count(**tq_params)
+                count = schema_table.count(**q_params)
                 print(f"\t\tFound {count} records!")
             except Exception as xc:
                 print(xc)
@@ -136,10 +150,10 @@ def main(host, env_file, query_file):
 
             if count > 0:
                 if projection:
-                    tq_params["projection"] = projection
+                    q_params["projection"] = projection
 
                 try:
-                    data = schema_table.query(**tq_params)
+                    data = schema_table.query(**q_params)
 
                     # save as json.gz
                     with gzip.open(data_file, "wt", encoding="utf-8") as f:
@@ -150,8 +164,8 @@ def main(host, env_file, query_file):
                     destination_blob_name = "powerschool/" + "/".join(
                         data_file.parts[-3:]
                     )
-                    blob = gcs_bucket.blob(destination_blob_name)
-                    blob.upload_from_filename(data_file)
+                    # blob = gcs_bucket.blob(destination_blob_name)
+                    # blob.upload_from_filename(data_file)
                     print(f"\t\tUploaded to {destination_blob_name}!")
 
                 except Exception as xc:
@@ -161,6 +175,7 @@ def main(host, env_file, query_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    
     parser.add_argument("host", help="PowerSchool hostname")
     parser.add_argument("env", help=".env file")
     parser.add_argument("query", help="query file")

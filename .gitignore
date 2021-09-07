@@ -133,7 +133,7 @@ data/
 dev/
 archive/
 .bash_secrets
-.envs/
-.tokens/
+envs/
+tokens/
 queries/
 *.sh
