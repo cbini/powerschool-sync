@@ -6,10 +6,9 @@ import os
 import pathlib
 import traceback
 
-import powerschool
 from dotenv import load_dotenv
 from google.cloud import storage
-from powerschool import utils
+from powerschool import PowerSchool, utils
 
 PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
@@ -50,7 +49,8 @@ def main(host, env_file, query_file):
             print(f"Creating {token_filepath.parent}...")
             token_filepath.parent.mkdir(parents=True)
 
-        ps = powerschool.PowerSchool(host=host, auth=client_credentials)
+        print("Fetching new access token...")
+        ps = PowerSchool(host=host, auth=client_credentials)
 
         print(f"Saving new access token to {token_filepath}...")
         with token_filepath.open("w") as f:
@@ -66,9 +66,15 @@ def main(host, env_file, query_file):
 
         # check token validity and authenticate
         if token_remaining.days <= 1:
-            raise Exception("Token expired!")
+            print("Token expired!")
+            print("Fetching new access token...")
+            ps = PowerSchool(host=host, auth=client_credentials)
+
+            print(f"Saving new access token to {token_filepath}...")
+            with token_filepath.open("w") as f:
+                json.dump(ps.access_token, f)
         else:
-            ps = powerschool.PowerSchool(host=host, auth=token_dict)
+            ps = PowerSchool(host=host, auth=token_dict)
 
     gcs_storage_client = storage.Client()
     gcs_bucket = gcs_storage_client.bucket(gcs_bucket_name)
