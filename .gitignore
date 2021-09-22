@@ -135,4 +135,6 @@ archive/
 .bash_secrets
 envs/
 tokens/
+queries/
+plugins/
 *.sh
