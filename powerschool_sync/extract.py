@@ -67,7 +67,7 @@ def main(host, env_file, query_file):
         token_remaining = expires_at - now
 
         # check token validity and authenticate
-        if token_remaining.days <= 1:
+        if token_remaining.days <= 2:
             print("Token expired!")
             print("Fetching new access token...")
             ps = PowerSchool(host=host, auth=client_credentials)
