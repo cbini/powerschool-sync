@@ -41,13 +41,24 @@ def main(host, env_file_name, query_file_name):
 
     client_credentials = (client_id, client_secret)
 
-    # load access token file, if exists
+    # load access token file and authenticate
     token_file_path = PROJECT_PATH / "tokens" / host_clean / token_file_name
-    if not token_file_path.exists():
-        print(f"{token_file_path} does not exist!")
-        if not token_file_path.parent.exists():
+    try:
+        print(f"Loading {token_file_path}...")
+        with token_file_path.open("rt") as f:
+            token_dict = json.load(f)
+
+        ps = PowerSchool(host=host, auth=token_dict)
+
+        # test access token is still valid
+        ps._request("GET", "/ws/schema/area")
+    except:
+        if not token_file_path.exists():
+            print(f"\tToken does not exist!")
             print(f"Creating {token_file_path.parent}...")
             token_file_path.parent.mkdir(parents=True)
+        else:
+            print("Token expired!")
 
         print("Fetching new access token...")
         ps = PowerSchool(host=host, auth=client_credentials)
@@ -55,26 +66,6 @@ def main(host, env_file_name, query_file_name):
         print(f"Saving new access token to {token_file_path}...")
         with token_file_path.open("wt") as f:
             json.dump(ps.access_token, f)
-    else:
-        print(f"Loading {token_file_path}...")
-        with token_file_path.open("rt") as f:
-            token_dict = json.load(f)
-
-        now = datetime.datetime.utcnow()
-        expires_at = datetime.datetime.fromtimestamp(token_dict["expires_at"])
-        token_remaining = expires_at - now
-
-        # check token validity and authenticate
-        if token_remaining.days <= 2:
-            print("Token expired!")
-            print("Fetching new access token...")
-            ps = PowerSchool(host=host, auth=client_credentials)
-
-            print(f"Saving new access token to {token_file_path}...")
-            with token_file_path.open("wt") as f:
-                json.dump(ps.access_token, f)
-        else:
-            ps = PowerSchool(host=host, auth=token_dict)
 
     gcs_storage_client = storage.Client()
     gcs_bucket = gcs_storage_client.bucket(gcs_bucket_name)
