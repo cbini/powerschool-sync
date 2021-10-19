@@ -55,10 +55,11 @@ def main(host, env_file_name, query_file_name):
     except:
         if not token_file_path.exists():
             print(f"\tToken does not exist!")
-            print(f"Creating {token_file_path.parent}...")
-            token_file_path.parent.mkdir(parents=True)
+            if not token_file_path.parent.exists():
+                print(f"Creating {token_file_path.parent}...")
+                token_file_path.parent.mkdir(parents=True)
         else:
-            print("Token expired!")
+            print("Token invalid or expired!")
 
         print("Fetching new access token...")
         ps = PowerSchool(host=host, auth=client_credentials)
@@ -66,6 +67,7 @@ def main(host, env_file_name, query_file_name):
         print(f"Saving new access token to {token_file_path}...")
         with token_file_path.open("wt") as f:
             json.dump(ps.access_token, f)
+            f.truncate()
 
     gcs_storage_client = storage.Client()
     gcs_bucket = gcs_storage_client.bucket(gcs_bucket_name)
