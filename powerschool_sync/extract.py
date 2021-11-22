@@ -49,12 +49,9 @@ def main(host, env_file_name, query_file_name):
             token_dict = json.load(f)
 
         ps = PowerSchool(host=host, auth=token_dict)
-
-        # test access token is still valid
-        ps._request("GET", "/ws/schema/area")
     except:
         if not token_file_path.exists():
-            print(f"\tToken does not exist!")
+            print("Token does not exist!")
             if not token_file_path.parent.exists():
                 print(f"Creating {token_file_path.parent}...")
                 token_file_path.parent.mkdir(parents=True)
@@ -146,7 +143,11 @@ def main(host, env_file_name, query_file_name):
             except Exception as xc:
                 print(xc)
                 print(traceback.format_exc())
-                continue
+                if xc.response.status_code == 401:
+                    print("Token Expired!")
+                    exit()
+                else:
+                    continue
 
             if count > 0:
                 if projection:
