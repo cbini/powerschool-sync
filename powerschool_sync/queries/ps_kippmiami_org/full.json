@@ -1,0 +1,30 @@
+[
+    {"table_name": "codeset"},
+    {"table_name": "courses"},
+    {"table_name": "fte"},
+    {"table_name": "gradescaleitem"},
+    {"table_name": "period"},
+    {"table_name": "prefs"},
+    {"table_name": "reenrollments"},
+    {"table_name": "schools"},
+    {"table_name": "schoolstaff"},
+    {"table_name": "sections"},
+    {"table_name": "sectionteacher"},
+    {"table_name": "spenrollments"},
+    {"table_name": "studentcorefields"},
+    {"table_name": "studentrace"},
+    {"table_name": "students"},
+    {"table_name": "termbins"},
+    {"table_name": "terms"},
+    {"table_name": "test"},
+    {"table_name": "testscore"},
+    {"table_name": "u_clg_et_stu"},
+    {"table_name": "u_clg_et_stu_alt"},
+    {"table_name": "u_def_ext_students"},
+    {"table_name": "u_studentsuserfields"},
+    {"table_name": "users"},
+    {
+        "table_name": "gen",
+        "projection": "dcid,id,cat,name,value,valuet,value2,valueli,valueli2,valuer,sortorder,valuet2,schoolid,powerlink,powerlinkspan,valueli3,valuer2,date_value,date2,time1,time2,spedindicator,log,valueli4,value_x,yearid,"
+    }
+]
