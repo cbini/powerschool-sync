@@ -152,6 +152,7 @@ def main(host, env_file_name, query_file_name):
 
                 if xc.response.status_code == 401:
                     print("Token Expired!")
+                    token_file_path.unlink()
                     exit()
                 else:
                     continue
