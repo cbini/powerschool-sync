@@ -2114,8 +2114,6 @@
         <field table="USERS" field="WM_TA_FLAG" access="ViewOnly" />
         <field table="USERS" field="WM_TIER" access="ViewOnly" />
         <field table="USERS" field="ZIP" access="ViewOnly" />
-        <field table="S_NJ_STU_X" field="IEPGraduationAttendance" access="ViewOnly" />
-        <field table="S_NJ_STU_X" field="IEPGradCourseRequirement" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="FederalHSMathTestingReq" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="StudentsLearningModel" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="Bridge_Year" access="ViewOnly" />
@@ -2142,8 +2140,6 @@
         <field table="S_NJ_STU_X" field="firsthsmathassessment_yn" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="IEPGraduationAttendance" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="IEPGradCourseRequirement" access="ViewOnly" />
-        <field table="S_NJ_STU_X" field="FederalHSMathTestingReq" access="ViewOnly" />
-        <field table="S_NJ_STU_X" field="Bridge_Year" access="ViewOnly" />
         <field table="S_NJ_REN_X" field="REENROLLMENTSDCID" access="ViewOnly" />
         <field table="S_NJ_REN_X" field="LEP_TF" access="ViewOnly" />
         <field table="S_NJ_REN_X" field="LEPBEGINDATE" access="ViewOnly" />
