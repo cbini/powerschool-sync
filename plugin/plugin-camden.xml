@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://plugin.powerschool.pearson.com"
-    name="Data Robot REST API Plugin" 
-    version="2021.05.24.2"
-    description="This plugin enables REST API access to tables needed to sync with our data warehouse">
+<plugin xmlns="http://plugin.powerschool.pearson.com" name="Data Robot REST API Plugin" version="2021.05.24.2" description="This plugin enables REST API access to tables needed to sync with our data warehouse">
     <oauth></oauth>
     <access_request>
         <field table="ASSIGNMENTCATEGORYASSOC" field="ASSIGNMENTCATEGORYASSOCID" access="ViewOnly" />
@@ -2143,6 +2140,56 @@
         <field table="S_NJ_STU_X" field="ctewblearning" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="remotedaysmembership" access="ViewOnly" />
         <field table="S_NJ_STU_X" field="firsthsmathassessment_yn" access="ViewOnly" />
+        <field table="S_NJ_STU_X" field="IEPGraduationAttendance" access="ViewOnly" />
+        <field table="S_NJ_STU_X" field="IEPGradCourseRequirement" access="ViewOnly" />
+        <field table="S_NJ_STU_X" field="FederalHSMathTestingReq" access="ViewOnly" />
+        <field table="S_NJ_STU_X" field="Bridge_Year" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="REENROLLMENTSDCID" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LEP_TF" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LEPBEGINDATE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LEPENDDATE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="PID_504_TF" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LIEP_TYPE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="WITHDRAWAL_DATE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="ALTERNATIVEEDUCATIONPROGRAM_YN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="CITY" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="COUNTYCODEATTENDING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="COUNTYCODERECEIVING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="COUNTYCODERESIDENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="CUMULATIVEDAYSABSENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="CUMULATIVEDAYSPRESENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="CUMULATIVESTATEABS" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DAYSOPEN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DEVICEOWNER" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DEVICETYPE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DISTRICTCODEATTENDING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DISTRICTCODERECEIVING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="DISTRICTCODERESIDENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="GIFTED_AND_TALENTED" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="HOMELESS_CODE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="HOMELESSPRIMARYNIGHTTIMERES" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="INDISTRICTPLACEMENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="INTERNETCONNECTIVITY" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LIEP_LANGUAGEOFINSTRUCTION" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="NONPUBLIC" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="PROGRAMTYPECODE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="REMOTEDAYSABSENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="REMOTEDAYSPRESENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="RESIDENTMUNICIPALCODE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SCHOOLCODEATTENDING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SCHOOLCODERECEIVING" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SCHOOLCODERESIDENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SHARED_TIME_CODE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="STUDENTSLEARNINGMODEL" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="TITLEILANGUAGE_YN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="TITLEIMATH_YN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="TITLEISCIENCE_YN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="LEARNINGENVIRONMENT" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="REPORTEDSHAREDVOC_YN" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="RETAINED_TF" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SCHOOLENTRYDATE" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="SPECIALED_CLASSIFICATION" access="ViewOnly" />
+        <field table="S_NJ_REN_X" field="TUITION_CODE" access="ViewOnly" />
     </access_request>
     <publisher name="KIPP NJ">
         <contact email="data@kippnj.org" />
