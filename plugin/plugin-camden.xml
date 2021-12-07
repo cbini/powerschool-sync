@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://plugin.powerschool.pearson.com" name="Data Robot REST API Plugin" version="2021.05.24.2" description="This plugin enables REST API access to tables needed to sync with our data warehouse">
+<plugin xmlns="http://plugin.powerschool.pearson.com" name="Data Robot REST API Plugin" version="2021.12.07.1" description="This plugin enables REST API access to tables needed to sync with our data warehouse">
     <oauth></oauth>
     <access_request>
         <field table="ASSIGNMENTCATEGORYASSOC" field="ASSIGNMENTCATEGORYASSOCID" access="ViewOnly" />
