@@ -102,7 +102,7 @@ python-versions = "*"
 
 [[package]]
 name = "google-api-core"
-version = "2.2.2"
+version = "2.3.0"
 description = "Google API client core library"
 category = "main"
 optional = false
@@ -198,7 +198,7 @@ requests = ["requests (>=2.18.0,<3.0.0dev)"]
 
 [[package]]
 name = "googleapis-common-protos"
-version = "1.53.0"
+version = "1.54.0"
 description = "Common protobufs used in Google APIs"
 category = "main"
 optional = false
@@ -292,7 +292,7 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "powerschool"
-version = "2.1.0"
+version = "3.0.0"
 description = "powerschool is a Python client for the PowerSchool API"
 category = "main"
 optional = false
@@ -486,7 +486,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "3c654c8da9be1363d7144d8bde65db33d51470980551205780ceb375d81330f9"
+content-hash = "e7b8d6a0cb50167d58d4b33464471db93e6a5938aa84d0062c5dc4ed0e89bb52"
 
 [metadata.files]
 atomicwrites = [
@@ -525,8 +525,8 @@ fiql-parser = [
     {file = "fiql-parser-0.15.tar.gz", hash = "sha256:6473a04af33234d4c95e9c4ed40450ee24d34ba34f074656304308b70149cdec"},
 ]
 google-api-core = [
-    {file = "google-api-core-2.2.2.tar.gz", hash = "sha256:97349cc18c2bb2415f64f1353a80273a289a61294ce3eb2f7ce682d251bdd997"},
-    {file = "google_api_core-2.2.2-py2.py3-none-any.whl", hash = "sha256:e7853735d4f51f4212d6bf9750620d76fc0106c0f271be0c3f43b73501c7ddf9"},
+    {file = "google-api-core-2.3.0.tar.gz", hash = "sha256:538cd927bfe0f7c63bc1eb5fcadeeeb52f90bb29117dea87ae8cae48953d4c60"},
+    {file = "google_api_core-2.3.0-py2.py3-none-any.whl", hash = "sha256:65fe1d9d8dde7a5ddc43d5cc134560c2a76b1a26c9f70c3c24f13b7910e89e10"},
 ]
 google-auth = [
     {file = "google-auth-2.3.3.tar.gz", hash = "sha256:d83570a664c10b97a1dc6f8df87e5fdfff012f48f62be131e449c20dfc32630e"},
@@ -590,8 +590,8 @@ google-resumable-media = [
     {file = "google_resumable_media-2.1.0-py2.py3-none-any.whl", hash = "sha256:cdc75ea0361e39704dc7df7da59fbd419e73c8bc92eac94d8a020d36baa9944b"},
 ]
 googleapis-common-protos = [
-    {file = "googleapis-common-protos-1.53.0.tar.gz", hash = "sha256:a88ee8903aa0a81f6c3cec2d5cf62d3c8aa67c06439b0496b49048fb1854ebf4"},
-    {file = "googleapis_common_protos-1.53.0-py2.py3-none-any.whl", hash = "sha256:f6d561ab8fb16b30020b940e2dd01cd80082f4762fa9f3ee670f4419b4b8dbd0"},
+    {file = "googleapis-common-protos-1.54.0.tar.gz", hash = "sha256:a4031d6ec6c2b1b6dc3e0be7e10a1bd72fb0b18b07ef9be7b51f2c1004ce2437"},
+    {file = "googleapis_common_protos-1.54.0-py2.py3-none-any.whl", hash = "sha256:e54345a2add15dc5e1a7891c27731ff347b4c33765d79b5ed7026a6c0c7cbcae"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
@@ -626,8 +626,8 @@ pluggy = [
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
 powerschool = [
-    {file = "powerschool-2.1.0-py3-none-any.whl", hash = "sha256:3915da8d5f5b5d8512affe6dde04b9ca0882fe180aa70ffd1ab3c058ed8c1750"},
-    {file = "powerschool-2.1.0.tar.gz", hash = "sha256:78cb98775f1efcd5a155cd804e7c6a34a13650af9610fcb67c5043b03e5a05a0"},
+    {file = "powerschool-3.0.0-py3-none-any.whl", hash = "sha256:78cb30c31f059d6125e24be2bc74e8ea7496f5f9ec127e9e68835d9b7a6db4e2"},
+    {file = "powerschool-3.0.0.tar.gz", hash = "sha256:c4d5a6cd3f4c987fb9284b3da94ae5d03f9c09f4608bd55d5020da63e24b959a"},
 ]
 protobuf = [
     {file = "protobuf-3.19.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d80f80eb175bf5f1169139c2e0c5ada98b1c098e2b3c3736667f28cbbea39fc8"},
