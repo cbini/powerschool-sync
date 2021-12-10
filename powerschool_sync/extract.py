@@ -159,11 +159,13 @@ def main(host, env_file_name, query_file_name):
                     len_data = len(data)
                     updated_count = schema_table.count(**q_params)
 
-                    if len_data < updated_count:
-                        raise Exception(
-                            f"Table count ({updated_count}) does not match "
-                            f"returned record count ({len_data})"
-                        )
+                    if len_data < count:
+                        updated_count = schema_table.count(**q_params)
+                        if len_data < updated_count:
+                            raise Exception(
+                                f"Returned record count ({len_data}) is less than"
+                                f"original table count ({updated_count})"
+                            )
 
                     # save as json.gz
                     with gzip.open(file_path, "wt", encoding="utf-8") as f:
