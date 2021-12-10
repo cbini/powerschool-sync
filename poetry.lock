@@ -292,7 +292,7 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "powerschool"
-version = "3.0.0"
+version = "3.0.1"
 description = "powerschool is a Python client for the PowerSchool API"
 category = "main"
 optional = false
@@ -626,8 +626,8 @@ pluggy = [
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
 powerschool = [
-    {file = "powerschool-3.0.0-py3-none-any.whl", hash = "sha256:78cb30c31f059d6125e24be2bc74e8ea7496f5f9ec127e9e68835d9b7a6db4e2"},
-    {file = "powerschool-3.0.0.tar.gz", hash = "sha256:c4d5a6cd3f4c987fb9284b3da94ae5d03f9c09f4608bd55d5020da63e24b959a"},
+    {file = "powerschool-3.0.1-py3-none-any.whl", hash = "sha256:3edb3f45ad499c2c76c17cf476a18d136fa155f0e158a29e84d3f817119cd9fe"},
+    {file = "powerschool-3.0.1.tar.gz", hash = "sha256:a6e69547254c8fcfacf5cf0a6c53efe93ab541fec7d7d5e61d05cd9584ed6c48"},
 ]
 protobuf = [
     {file = "protobuf-3.19.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d80f80eb175bf5f1169139c2e0c5ada98b1c098e2b3c3736667f28cbbea39fc8"},
