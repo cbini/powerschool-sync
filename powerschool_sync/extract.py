@@ -164,11 +164,15 @@ def main(host, env_file_name, query_file_name):
                 try:
                     data = schema_table.query(**q_params)
                     len_data = len(data)
+                    updated_count = schema_table.count(**q_params)
 
-                    if len_data != count:
-                        raise Exception(
-                            f"Table count ({count}) does not match returned record count ({len_data})"
-                        )
+                    if len_data < count:
+                        updated_count = schema_table.count(**q_params)
+                        if len_data < updated_count:
+                            raise Exception(
+                                f"Returned record count ({len_data}) is less than"
+                                f"original table count ({updated_count})"
+                            )
 
                     # save as json.gz
                     with gzip.open(file_path, "wt", encoding="utf-8") as f:
@@ -176,8 +180,10 @@ def main(host, env_file_name, query_file_name):
                     print(f"\t\tSaved to {file_path}!")
 
                     # upload to GCS
-                    file_path_parts = file_path.parts
-                    destination_blob_name = f"powerschool/{'/'.join(file_path_parts[file_path_parts.index('data') + 1:])}"
+                    fpp = file_path.parts
+                    destination_blob_name = (
+                        f"powerschool/" f"{'/'.join(fpp[fpp.index('data') + 1:])}"
+                    )
                     blob = gcs_bucket.blob(destination_blob_name)
                     blob.upload_from_filename(file_path)
                     print(f"\t\tUploaded to {blob.public_url}!")
