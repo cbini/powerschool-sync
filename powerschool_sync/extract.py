@@ -156,6 +156,12 @@ def main(host, env_file_name, query_file_name):
 
                 try:
                     data = schema_table.query(**q_params)
+                    len_data = len(data)
+
+                    if len_data != count:
+                        raise Exception(
+                            f"Table count ({count}) does not match returned record count ({len_data})"
+                        )
 
                     # save as json.gz
                     with gzip.open(file_path, "wt", encoding="utf-8") as f:
