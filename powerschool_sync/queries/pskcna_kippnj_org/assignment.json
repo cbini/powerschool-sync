@@ -19,7 +19,7 @@
         "projection": "assignmentcategoryassocid,assignmentsectionid,teachercategoryid,yearid,isprimary,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
         "queries": {
             "selector": "assignmentcategoryassocid",
-            "values": [210341]
+            "values": [210713]
         }
     },
     {
@@ -27,7 +27,7 @@
         "projection": "assignmentsectionid,yearid,sectionsdcid,assignmentid,relatedgradescaleitemdcid,name,duedate,description,scoretype,scoreentrypoints,extracreditpoints,weight,totalpointvalue,iscountedinfinalgrade,isscoringneeded,publishoption,publishdaysbeforedue,publishonspecificdate,publisheddate,publishedscoretypeid,isscorespublish,maxretakeallowed,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
         "queries": {
             "selector": "duedate",
-            "values": ["2021-07-01"]
+            "values": ["2021-10-25"]
         }
     },
     {
@@ -35,7 +35,7 @@
         "projection": "assignmentscoreid,yearid,assignmentsectionid,studentsdcid,islate,iscollected,isexempt,ismissing,isabsent,isincomplete,actualscoreentered,actualscorekind,actualscoregradescaledcid,scorepercent,scorepoints,scorelettergrade,scorenumericgrade,scoreentrydate,scoregradescaledcid,altnumericgrade,altalphagrade,altscoregradescaledcid,hasretake,authoredbyuc,ip_address,whomodifiedid,whomodifiedtype,transaction_date,",
         "queries": {
             "selector": "scoreentrydate",
-            "values": ["2021-07-01"]
+            "values": ["2021-10-25"]
         }
     }
 ]
