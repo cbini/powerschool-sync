@@ -11,7 +11,7 @@ google-cloud-storage = "^1.42.2"
 powerschool = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2"
+pytest = "^7.0"
 black = "^21.9b0"
 
 [build-system]
