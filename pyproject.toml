@@ -1,19 +1,31 @@
-[tool.poetry]
-name = "powerschool-sync"
-version = "0.1.0"
+[project]
+name = ""
+version = ""
 description = ""
-authors = ["Charlie Bini <cbini87@gmail.com>"]
+authors = [
+    {name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com"},
+]
+dependencies = [
+    "python-dotenv>=0.19.2",
+    "google-cloud-storage>=2.1.0",
+    "powerschool>=3.1.1",
+]
+requires-python = ">=3.9"
+license = {text = "MIT"}
 
-[tool.poetry.dependencies]
-python = "^3.9"
-python-dotenv = "^0.19.0"
-google-cloud-storage = "^1.42.2"
-powerschool = "^3.0.0"
+[project.urls]
+homepage = ""
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2"
-black = "^21.9b0"
+[project.optional-dependencies]
+[tool]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=7.0.1",
+    "black>=22.1.0",
+    "flake8>=4.0.1",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
