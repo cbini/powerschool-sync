@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from google.cloud import storage
 from powerschool import PowerSchool, utils
 
+from datarobot.utilities import email
+
 PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
@@ -143,6 +145,11 @@ def main(host, env_file_name, query_file_name):
             except Exception as xc:
                 print(xc)
                 print(traceback.format_exc())
+
+                email_subject = f"{host} Count Error - {table_name}"
+                email_body = f"{xc}\n\n{traceback.format_exc()}"
+                email.send_email(subject=email_subject, body=email_body)
+
                 if xc.response.status_code == 401:
                     print("Token Expired!")
                     token_file_path.unlink()
@@ -184,6 +191,9 @@ def main(host, env_file_name, query_file_name):
                 except Exception as xc:
                     print(xc)
                     print(traceback.format_exc())
+                    email_subject = f"{host} Extract Error - {table_name}"
+                    email_body = f"{xc}\n\n{traceback.format_exc()}"
+                    email.send_email(subject=email_subject, body=email_body)
 
 
 if __name__ == "__main__":
@@ -200,3 +210,6 @@ if __name__ == "__main__":
     except Exception as xc:
         print(xc)
         print(traceback.format_exc())
+        email_subject = f"{args.host} Extract Error - {args.query}"
+        email_body = f"{xc}\n\n{traceback.format_exc()}"
+        email.send_email(subject=email_subject, body=email_body)
