@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import gzip
+import http
 import json
 import os
 import pathlib
@@ -51,14 +52,14 @@ def main(host, env_file_name, query_file_name):
             token_dict = json.load(f)
 
         ps = PowerSchool(host=host, auth=token_dict)
-    except:
+    except Exception:
         if not token_file_path.exists():
             print("Token does not exist!")
             if not token_file_path.parent.exists():
                 print(f"Creating {token_file_path.parent}...")
                 token_file_path.parent.mkdir(parents=True)
         else:
-            print("Token invalid or expired!")
+            print(f"Token invalid or expired!\n{traceback.format_exc()}")
 
         print("Fetching new access token...")
         ps = PowerSchool(host=host, auth=client_credentials)
@@ -187,6 +188,14 @@ def main(host, env_file_name, query_file_name):
                     blob = gcs_bucket.blob(destination_blob_name)
                     blob.upload_from_filename(file_path)
                     print(f"\t\tUploaded to {blob.public_url}!")
+
+                except http.client.RemoteDisconnected as xc:
+                    print(xc)
+                    print(traceback.format_exc())
+                    email_subject = f"{host} Extract Error - {table_name}"
+                    email_body = f"{xc}\n\n{traceback.format_exc()}"
+                    email.send_email(subject=email_subject, body=email_body)
+                    exit()
 
                 except Exception as xc:
                     print(xc)
