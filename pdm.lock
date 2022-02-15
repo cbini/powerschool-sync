@@ -199,8 +199,8 @@ summary = "plugin and hook calling mechanisms for python"
 
 [[package]]
 name = "powerschool"
-version = "3.1.1"
-requires_python = ">=3.9"
+version = "3.1.2"
+requires_python = ">=3.6.2"
 summary = "Python client for the PowerSchool API"
 dependencies = [
     "fiql-parser>=0.15",
@@ -509,9 +509,9 @@ content_hash = "sha256:171d87b04c53fbb048585cb6fac3442131622be88ec984efbe0dd5249
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
-"powerschool 3.1.1" = [
-    {file = "powerschool-3.1.1-py3-none-any.whl", hash = "sha256:04730d12b6aacd4fe407796fcba4297a333f059ff8cded84e1e816cc44871bab"},
-    {file = "powerschool-3.1.1.tar.gz", hash = "sha256:01012ead421e3151d083e96ce3bcf43185de0a21ae05a0fa6d6c281ffeec99c8"},
+"powerschool 3.1.2" = [
+    {file = "powerschool-3.1.2-py3-none-any.whl", hash = "sha256:a590600592fa620e2452614d673e47c75911de325a255f1a670dc3d51c2ac356"},
+    {file = "powerschool-3.1.2.tar.gz", hash = "sha256:885589616aa304ddb765c7f86c9251b9eb481a7ffc4cfe26b2b6cebf80330910"},
 ]
 "protobuf 3.19.4" = [
     {file = "protobuf-3.19.4-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:f51d5a9f137f7a2cec2d326a74b6e3fc79d635d69ffe1b036d39fc7d75430d37"},
