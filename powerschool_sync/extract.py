@@ -7,45 +7,34 @@ import os
 import pathlib
 import traceback
 
-from dotenv import load_dotenv
 from google.cloud import storage
 from powerschool import PowerSchool, utils
-
-from datarobot.utilities import email
 
 PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
-def main(host, env_file_name, query_file_name):
-    print(host, env_file_name, query_file_name)
-    host_clean = host.replace(".", "_")
-
-    env_file_path = PROJECT_PATH / "envs" / host_clean / env_file_name
-    if not env_file_path.exists():
-        if not env_file_path.parent.exists():
-            print(f"Creating {env_file_path.parent}...")
-            env_file_path.parent.mkdir(parents=True)
-        raise FileNotFoundError(f"Create {env_file_path} and try again!")
-
-    queries_file_path = PROJECT_PATH / "queries" / host_clean / query_file_name
-    if not queries_file_path.exists():
-        if not queries_file_path.parent.exists():
-            queries_file_path.parent.mkdir(parents=True)
-            print(f"Creating {queries_file_path.parent}...")
-        raise FileNotFoundError(f"Create {queries_file_path} and try again!")
-
-    load_dotenv(dotenv_path=env_file_path)
-
+def main(query_file_name):
+    host = os.getenv("HOST")
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
-    token_file_name = os.getenv("TOKEN_FILE")
     current_yearid = int(os.getenv("CURRENT_YEARID"))
     gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
+
+    print(host, query_file_name)
+    host_clean = host.replace(".", "_")
+
+    queries_file_path = PROJECT_PATH / "queries" / host_clean / query_file_name
+    if not queries_file_path.parent.exists():
+        queries_file_path.parent.mkdir(parents=True)
+        print(f"Creating {queries_file_path.parent}...")
+
+    if not queries_file_path.exists():
+        raise FileNotFoundError(f"Create {queries_file_path} and try again!")
 
     client_credentials = (client_id, client_secret)
 
     # load access token file and authenticate
-    token_file_path = PROJECT_PATH / "tokens" / host_clean / token_file_name
+    token_file_path = PROJECT_PATH / "tokens" / host_clean / "token.json"
     try:
         print(f"Loading {token_file_path}...")
         with token_file_path.open("rt") as f:
@@ -147,10 +136,6 @@ def main(host, env_file_name, query_file_name):
                 print(xc)
                 print(traceback.format_exc())
 
-                email_subject = f"{host} Count Error - {table_name}"
-                email_body = f"{xc}\n\n{traceback.format_exc()}"
-                email.send_email(subject=email_subject, body=email_body)
-
                 if xc.response.status_code == 401:
                     print("Token Expired!")
                     token_file_path.unlink()
@@ -192,33 +177,20 @@ def main(host, env_file_name, query_file_name):
                 except http.client.RemoteDisconnected as xc:
                     print(xc)
                     print(traceback.format_exc())
-                    email_subject = f"{host} Extract Error - {table_name}"
-                    email_body = f"{xc}\n\n{traceback.format_exc()}"
-                    email.send_email(subject=email_subject, body=email_body)
                     exit()
 
                 except Exception as xc:
                     print(xc)
                     print(traceback.format_exc())
-                    email_subject = f"{host} Extract Error - {table_name}"
-                    email_body = f"{xc}\n\n{traceback.format_exc()}"
-                    email.send_email(subject=email_subject, body=email_body)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
-    parser.add_argument("host", help="PowerSchool hostname")
-    parser.add_argument("env", help=".env file name")
     parser.add_argument("query", help="query file name")
-
     args = parser.parse_args()
 
     try:
-        main(args.host, args.env, args.query)
+        main(args.query)
     except Exception as xc:
         print(xc)
         print(traceback.format_exc())
-        email_subject = f"{args.host} Extract Error - {args.query}"
-        email_body = f"{xc}\n\n{traceback.format_exc()}"
-        email.send_email(subject=email_subject, body=email_body)
