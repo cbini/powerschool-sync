@@ -31,7 +31,10 @@ build-backend = "pdm.pep517.api"
 [tool.pdm.scripts]
 extract-nwk.cmd = "python powerschool_sync/extract.py"
 extract-nwk.env_file = "powerschool_sync/envs/psteam_kippnj_org/.env"
+extract-nwk.site_packages = true
 extract-cmd.cmd = "python powerschool_sync/extract.py"
 extract-cmd.env_file = "powerschool_sync/envs/pskcna_kippnj_org/.env"
+extract-cmd.site_packages = true
 extract-mia.cmd = "python powerschool_sync/extract.py"
 extract-mia.env_file = "powerschool_sync/envs/ps_kippmiami_org/.env"
+extract-mia.site_packages = true
