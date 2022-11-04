@@ -10,20 +10,21 @@ import traceback
 from google.cloud import storage
 from powerschool import PowerSchool, utils
 
-PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
-
-def main(query_file_name):
+def main():
     host = os.getenv("HOST")
-    client_id = os.getenv("CLIENT_ID")
-    client_secret = os.getenv("CLIENT_SECRET")
     current_yearid = int(os.getenv("CURRENT_YEARID"))
-    gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
 
-    print(host, query_file_name)
+    script_dir = pathlib.Path(__file__).absolute().parent
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("query", help="query file name")
+    args = parser.parse_args()
+
+    print(host, args.query)
     host_clean = host.replace(".", "_")
 
-    queries_file_path = PROJECT_PATH / "queries" / host_clean / query_file_name
+    queries_file_path = script_dir / "queries" / host_clean / args.query
     if not queries_file_path.parent.exists():
         queries_file_path.parent.mkdir(parents=True)
         print(f"Creating {queries_file_path.parent}...")
@@ -31,10 +32,10 @@ def main(query_file_name):
     if not queries_file_path.exists():
         raise FileNotFoundError(f"Create {queries_file_path} and try again!")
 
-    client_credentials = (client_id, client_secret)
+    client_credentials = (os.getenv("CLIENT_ID"), os.getenv("CLIENT_SECRET"))
 
     # load access token file and authenticate
-    token_file_path = PROJECT_PATH / "tokens" / host_clean / "token.json"
+    token_file_path = script_dir / "tokens" / host_clean / "token.json"
     try:
         print(f"Loading {token_file_path}...")
         with token_file_path.open("rt") as f:
@@ -59,7 +60,7 @@ def main(query_file_name):
             f.truncate()
 
     gcs_storage_client = storage.Client()
-    gcs_bucket = gcs_storage_client.bucket(gcs_bucket_name)
+    gcs_bucket = gcs_storage_client.bucket(os.getenv("GCS_BUCKET_NAME"))
 
     with queries_file_path.open("rt") as f:
         tables = json.load(f)
@@ -71,7 +72,7 @@ def main(query_file_name):
         print(table_name)
 
         # create data folder
-        file_dir = PROJECT_PATH / "data" / host_clean / table_name
+        file_dir = script_dir / "data" / host_clean / table_name
         if not file_dir.exists():
             file_dir.mkdir(parents=True)
             print(f"\tCreated {file_dir}...")
@@ -185,12 +186,8 @@ def main(query_file_name):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("query", help="query file name")
-    args = parser.parse_args()
-
     try:
-        main(args.query)
+        main()
     except Exception as xc:
         print(xc)
         print(traceback.format_exc())
