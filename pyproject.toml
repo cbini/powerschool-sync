@@ -23,7 +23,7 @@ requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
-extract-nwk = { call = "powerschool_sync.extract:main", env_file = "powerschool_sync/envs/psteam_kippnj_org.env" }
-extract-cmd = { call = "powerschool_sync.extract:main", env_file = "powerschool_sync/envs/pskcna_kippnj_org.env" }
-extract-mia = { call = "powerschool_sync.extract:main", env_file = "powerschool_sync/envs/ps_kippmiami_org.env" }
+extract-nwk = { call = "powerschool_sync.extract:main", env_file = "env/psteam_kippnj_org.env" }
+extract-cmd = { call = "powerschool_sync.extract:main", env_file = "env/pskcna_kippnj_org.env" }
+extract-mia = { call = "powerschool_sync.extract:main", env_file = "env/ps_kippmiami_org.env" }
 post_lock = { shell = "pdm export -f requirements -o requirements.txt" }
