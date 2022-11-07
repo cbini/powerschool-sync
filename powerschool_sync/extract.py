@@ -91,15 +91,19 @@ def main():
                 # generate historical queries
                 print("\tNo existing data. Generating historical queries...")
                 query_params = utils.generate_historical_queries(
-                    current_yearid, selector
+                    current_yearid=current_yearid, query_constraint_selector=selector
                 )
                 query_params.reverse()
             else:
-                constraint_rules = utils.get_constraint_rules(selector, current_yearid)
+                constraint_rules = utils.get_constraint_rules(
+                    selector=selector, yearid=current_yearid
+                )
 
                 # if there aren't specified values, transform yearid to value
                 if not values:
-                    values = [utils.transform_yearid(current_yearid, selector)]
+                    values = [
+                        utils.transform_yearid(yearid=current_yearid, selector=selector)
+                    ]
 
                 # for each value, get query expression
                 for v in values:
@@ -109,10 +113,12 @@ def main():
                         expression = f"{selector}=ge={yesterday.isoformat()}"
                     else:
                         constraint_values = utils.get_constraint_values(
-                            selector, v, constraint_rules["step_size"]
+                            selector=selector,
+                            arg_value=v,
+                            step_size=constraint_rules["step_size"],
                         )
                         expression = utils.get_query_expression(
-                            selector, **constraint_values
+                            selector=selector, **constraint_values
                         )
 
                     query_params.append(expression)
