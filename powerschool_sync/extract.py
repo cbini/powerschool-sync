@@ -90,9 +90,7 @@ def main():
             if not [f for f in file_dir.iterdir()]:
                 # generate historical queries
                 print("\tNo existing data. Generating historical queries...")
-                query_params = utils.generate_historical_queries(
-                    current_yearid=current_yearid, query_constraint_selector=selector
-                )
+                query_params = utils.generate_historical_queries()  # this is broken
                 query_params.reverse()
             else:
                 constraint_rules = utils.get_constraint_rules(
@@ -102,7 +100,9 @@ def main():
                 # if there aren't specified values, transform yearid to value
                 if not values:
                     values = [
-                        utils.transform_yearid(yearid=current_yearid, selector=selector)
+                        utils.transform_year_id(
+                            year_id=current_yearid, selector=selector
+                        )
                     ]
 
                 # for each value, get query expression
@@ -114,7 +114,7 @@ def main():
                     else:
                         constraint_values = utils.get_constraint_values(
                             selector=selector,
-                            arg_value=v,
+                            value=v,
                             step_size=constraint_rules["step_size"],
                         )
                         expression = utils.get_query_expression(
