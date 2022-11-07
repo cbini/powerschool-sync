@@ -96,7 +96,7 @@ def main():
                 query_params.reverse()
             else:
                 constraint_rules = utils.get_constraint_rules(
-                    selector=selector, yearid=current_yearid
+                    selector=selector, year_id=current_yearid
                 )
 
                 # if there aren't specified values, transform yearid to value
