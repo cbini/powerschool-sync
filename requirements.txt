@@ -12,9 +12,8 @@ fiql-parser==0.15 \
 google-api-core==2.10.2 \
     --hash=sha256:10c06f7739fe57781f87523375e8e1a3a4674bf6392cd6131a3222182b971320 \
     --hash=sha256:34f24bd1d5f72a8c4519773d99ca6bf080a6c4e041b4e9f024fe230191dda62e
-google-auth==2.14.0 \
-    --hash=sha256:1ad5b0e6eba5f69645971abb3d2c197537d5914070a8c6d30299dfdb07c5c700 \
-    --hash=sha256:cf24817855d874ede2efd071aa22125445f555de1685b739a9782fcf408c2a3d
+google-auth==2.14.1 \
+    --hash=sha256:f5d8701633bebc12e0deea4df8abd8aff31c28b355360597f7f2ee60f2e4d016
 google-cloud-core==2.3.2 \
     --hash=sha256:8417acf6466be2fa85123441696c4badda48db314c607cf1e5d543fa8bdc22fe \
     --hash=sha256:b9529ee7047fd8d4bf4a2182de619154240df17fbe60ead399078c1ae152af9a
